@@ -16,26 +16,26 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:////Users/CEM/Desktop/Todo/todo.
 db = SQLAlchemy(app)
 db.init_app(app)
 
-class doList(db.Model):
+class Todo(db.Model):
     id =db.Column(db.Integer,primary_key=True)
     title = db.Column(db.String(80))
     complete = db.Column(db.Boolean)
 
 @app.route("/")
 def index():
-    todos = doList.query.all()
+    todos = Todo.query.all()
     return render_template("index.html",todos=todos)
 
 @app.route("/complete/<string:id>")
 def completetodo(id):
-    todo = doList.query.filter_by(id=id).first()
+    todo = Todo.query.filter_by(id=id).first()
     todo.complete = not todo.complete
     db.session.commit()
     return redirect(url_for("index"))
 
 @app.route("/delete/<string:id>")
 def deletetodo(id):
-    todo = doList.query.filter_by(id=id).first()
+    todo = Todo.query.filter_by(id=id).first()
     db.session.delete(todo)
     db.session.commit() #database de değişiklik yaptığımızdan commit ederiz
     return redirect(url_for("index"))
@@ -44,10 +44,10 @@ def deletetodo(id):
 @app.route("/add",methods=["POST"])
 def add():
     title = request.form.get("title")
-    newTodo = doList(title=title,complete=False)
+    newTodo = Todo(title=title,complete=False)
     db.session.add(newTodo)
     db.session.commit()
-    return redirect(url_for("index"))  
+    return redirect(url_for("index"))    
     
 if __name__ == "__main__":
     db.create_all()
