@@ -21,7 +21,7 @@ class doList(db.Model):
     title = db.Column(db.String(80))
     complete = db.Column(db.Boolean)
 
-"""@app.route("/")
+@app.route("/")
 def index():
     todos = doList.query.all()
     return render_template("index.html",todos=todos)
@@ -47,7 +47,7 @@ def add():
     newTodo = doList(title=title,complete=False)
     db.session.add(newTodo)
     db.session.commit()
-    return redirect(url_for("index"))  """  
+    return redirect(url_for("index"))  
     
 if __name__ == "__main__":
     db.create_all()
