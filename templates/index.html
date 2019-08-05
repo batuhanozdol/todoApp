@@ -7,30 +7,32 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-	<title> Todo App </title>
+	<title> Advicer </title>
 </head>
 <body>
 		<nav class="navbar navbar-default">
 				<div class="container-fluid">
 				  <div style="padding:left" class="navbar-header">
-					<a class="navbar-brand" href="/">To do Listesi</a>
+					<a class="navbar-brand" href="/">Fano</a>
 				  </div>
 				  <ul class="nav navbar-nav">
 					<li class="active"><a href="/">Ana Sayfa</a></li>
-				
 				  </ul>
 				</div>
 			  </nav>
 	<div style="margin-top:80px;" class="container">
-	<h3>Todo List</h3>
+	<h3>Place Advicer</h3>
 	<hr>
 	<form action="/add" method = "post">
 		 <div class="form-group">
-		<label for="exampleInputEmail1">Todo</label>
-		<input type="text" class="form-control" name="title" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Todo girin">
+		<br/>
+		<label for="exampleInputEmail1">Kullanıcı Adı</label>
+		<input type="text" class="form-control" name="author" id="exampleInputEmail1" placeholder="Kullanıcı adı girin">
+		<br/><label for="exampleInputEmail1">Tavsiyen</label><br/>
+		<input type="text" class="form-control" name="title" id="exampleInputEmail1" placeholder="Gidilecek yer tavsiyesi girin">
 		<br><button type="submit" class="btn btn-danger">Ekle </button>
 		</div>
-	<hr>		
+	<hr\>		
 	</form>
 	{% if todos==[] %}
 	<div class="alert alert-warning" role="alert">
@@ -39,8 +41,8 @@
 	<table class="table">
   	<thead>
     <tr>
-      <th scope="col">id</th>
-      <th scope="col">Başlık</th>
+      <th scope="col">Yazar</th>
+      <th scope="col">Tavsiye</th>
       <th scope="col">Durum</th>
       <th scope="col">Güncelle</th>
 	  <th scope="col">Sil</th>
@@ -50,17 +52,15 @@
   	<tbody>
     {% for todo in todos %}
 	<tr>
-      <th scope="row">{{todo.id}}</th>
+      <td>{{todo.author}}</td>
       <td>{{todo.title}}</td>
 	  {% if todo.complete==False %}
 	  <td> Tamamlanmadı </td>
 	  {% else %}
 	  <td> Tamamlandı </td>
 	  {% endif %}
-      <td>{{todo.complete}}</td>
       <td><a href="/complete/{{todo.id}}" class="btn btn-danger">Tamamla</a></td>
       <td><a href="/delete/{{todo.id}}" class="btn btn-danger">Sil</a></td>
-
 	</tr>	
 	{% endfor %}
   </tbody>
