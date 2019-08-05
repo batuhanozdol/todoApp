@@ -18,7 +18,8 @@ db.init_app(app)
 
 class Todo(db.Model):
     id =db.Column(db.Integer,primary_key=True)
-    title = db.Column(db.String(80))
+    author = db.Column(db.String(20))
+    title = db.Column(db.String(50))
     complete = db.Column(db.Boolean)
 
 @app.route("/")
@@ -44,7 +45,8 @@ def deletetodo(id):
 @app.route("/add",methods=["POST"])
 def add():
     title = request.form.get("title")
-    newTodo = Todo(title=title,complete=False)
+    author = request.form.get("author")
+    newTodo = Todo(title=title,author=author,complete=False)
     db.session.add(newTodo)
     db.session.commit()
     return redirect(url_for("index"))    
