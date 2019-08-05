@@ -11,8 +11,10 @@ from flask_sqlalchemy import SQLAlchemy
 #Desktop/TodoApp/> sqlite3 todo.db     .tables    .exit   db oluşturma
 
 app = Flask(__name__)
-app.config["SQLACLHEMY_DATABASE_URI"] = "sqlite:////Users/CEM/Desktop/TodoApp/todo.db"
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config["SQLACLHEMY_DATABASE_URI"] = "sqlite:////Users/CEM/Desktop/Todo/todo.db"
 db = SQLAlchemy(app)
+db.init_app(app)
 
 class Todo(db.Model):
     id =db.Column(db.Integer,primary_key=True)
