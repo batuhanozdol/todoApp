@@ -46,10 +46,13 @@ def deletetodo(id):
 def add():
     title = request.form.get("title")
     author = request.form.get("author")
-    newTodo = Todo(title=title,author=author,complete=False)
-    db.session.add(newTodo)
-    db.session.commit()
-    return redirect(url_for("index"))    
+    if (title=="" or author==""):
+        return redirect(url_for("index"))
+    else:
+        newTodo = Todo(title=title,author=author,complete=False)
+        db.session.add(newTodo)
+        db.session.commit()
+        return redirect(url_for("index"))    
     
 if __name__ == "__main__":
     db.create_all()
