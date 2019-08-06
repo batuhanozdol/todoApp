@@ -30,41 +30,77 @@
 		<input type="text" class="form-control" name="author" id="exampleInputEmail1" placeholder="Kullanıcı adı girin">
 		<br/><label for="exampleInputEmail1">Tavsiyen</label><br/>
 		<input type="text" class="form-control" name="title" id="exampleInputEmail1" placeholder="Gidilecek yer tavsiyesi girin">
-		<br><button type="submit" class="btn btn-danger">Ekle </button>
+		<br/><button type="submit" class="btn btn-danger">Ekle </button>
 		</div>
 	<hr\>		
 	</form>
-	{% if todos==[] %}
-	<div class="alert alert-warning" role="alert">
-		Liste boş </div>
-	{% else %}		
-	<table class="table">
-  	<thead>
-    <tr>
-      <th scope="col">Yazar</th>
-      <th scope="col">Tavsiye</th>
-      <th scope="col">Durum</th>
-      <th scope="col">Güncelle</th>
-	  <th scope="col">Sil</th>
-
-    </tr>
-  	</thead>
-  	<tbody>
-    {% for todo in todos %}
-	<tr>
-      <td>{{todo.author}}</td>
-      <td>{{todo.title}}</td>
-	  {% if todo.complete==False %}
-	  <td> Tamamlanmadı </td>
-	  {% else %}
-	  <td> Tamamlandı </td>
-	  {% endif %}
-      <td><a href="/complete/{{todo.id}}" class="btn btn-danger">Tamamla</a></td>
-      <td><a href="/delete/{{todo.id}}" class="btn btn-danger">Sil</a></td>
-	</tr>	
-	{% endfor %}
-  </tbody>
-</table>
+	{% if mesaj == 1 %}
+		<div class="alert alert-warning" role="alert">
+		Kullanıcı adı veya tavsiye boş olamaz 
+		</div>
+		{% if todos==[] %}
+			<div class="alert alert-warning" role="alert">
+			Liste boş </div>
+		{% else %}		
+			<table class="table">
+			<thead>
+			<tr>
+			<th scope="col">Yazar</th>
+			<th scope="col">Tavsiye</th>
+			<th scope="col">Durum</th>
+			<th scope="col">Güncelle</th>
+			<th scope="col">Sil</th>
+			</tr>
+			</thead>
+			<tbody>
+			{% for todo in todos %}
+				<tr>
+				<td>{{todo.author}}</td>
+				<td>{{todo.title}}</td>
+				{% if todo.complete==False %}
+					<td> Tamamlanmadı </td>
+					{% else %}
+					<td> Tamamlandı </td>
+				{% endif %}
+				<td><a href="/complete/{{todo.id}}" class="btn btn-danger">Tamamla</a></td>
+				<td><a href="/delete/{{todo.id}}" class="btn btn-danger">Sil</a></td>
+				</tr>	
+			{% endfor %}
+			</tbody>
+			</table>
+		{% endif %}
+	{% else %}
+		{% if todos==[] %}
+			<div class="alert alert-warning" role="alert">
+			Liste boş </div>
+		{% else %}		
+			<table class="table">
+			<thead>
+			<tr>
+			<th scope="col">Yazar</th>
+			<th scope="col">Tavsiye</th>
+			<th scope="col">Durum</th>
+			<th scope="col">Güncelle</th>
+			<th scope="col">Sil</th>
+			</tr>
+			</thead>
+			<tbody>
+			{% for todo in todos %}
+				<tr>
+				<td>{{todo.author}}</td>
+				<td>{{todo.title}}</td>
+				{% if todo.complete==False %}
+					<td> Tamamlanmadı </td>
+					{% else %}
+					<td> Tamamlandı </td>
+				{% endif %}
+				<td><a href="/complete/{{todo.id}}" class="btn btn-danger">Tamamla</a></td>
+				<td><a href="/delete/{{todo.id}}" class="btn btn-danger">Sil</a></td>
+				</tr>	
+			{% endfor %}
+			</tbody>
+			</table>
+		{% endif %}
 	{% endif %}
 	</div>
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

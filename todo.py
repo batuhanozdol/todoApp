@@ -47,7 +47,9 @@ def add():
     title = request.form.get("title")
     author = request.form.get("author")
     if (title=="" or author==""):
-        return redirect(url_for("index"))
+        mesaj = 1
+        todos = Todo.query.all()
+        return render_template("index.html",todos=todos,mesaj=mesaj)
     else:
         newTodo = Todo(title=title,author=author,complete=False)
         db.session.add(newTodo)
