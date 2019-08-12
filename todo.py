@@ -20,7 +20,7 @@ class Todo(db.Model):
     id =db.Column(db.Integer,primary_key=True)
     author = db.Column(db.String(20))
     title = db.Column(db.String(50))
-    complete = db.Column(db.Boolean)
+    tamamlama = db.Column(db.Integer)
 
 @app.route("/")
 def index():
@@ -30,7 +30,7 @@ def index():
 @app.route("/complete/<string:id>")
 def completetodo(id):
     todo = Todo.query.filter_by(id=id).first()
-    todo.complete = not todo.complete
+    todo.tamamlama += 1
     db.session.commit()
     return redirect(url_for("index"))
 
@@ -51,7 +51,7 @@ def add():
         todos = Todo.query.all()
         return render_template("index.html",todos=todos,mesaj=mesaj)
     else:
-        newTodo = Todo(title=title,author=author,complete=False)
+        newTodo = Todo(title=title,author=author,tamamlama = 0)
         db.session.add(newTodo)
         db.session.commit()
         return redirect(url_for("index"))    
